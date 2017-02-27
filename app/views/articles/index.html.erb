@@ -1,0 +1,92 @@
+
+
+    <div class="row">
+        <div class="col-sm-8">
+
+            <h2>
+
+              <% if !current_user %>
+
+                  <%= link_to 'Log-in', new_session_path %>
+
+              <% else %>
+
+                  Hello <%= current_user.username %>
+
+              <%= link_to 'Log-Out', session_path(current_user.id), method: "DELETE" %>
+
+              <% end %>
+
+            </h2>
+
+
+
+
+
+            <%= form_tag(articles_path, :method => "get", id: "search-form") do %>
+                <%= text_field_tag :search, params[:search], placeholder: "Search Tittle Or Content" %>
+                <%= submit_tag "Search" %>
+            <% end %>
+
+
+            <% if @articles.present? %>
+              <%= render @articles %>
+            <% else %>
+              <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+            <% end %> 
+
+
+
+
+            <% @articles.each do |article| %>
+
+            <h3><%= article.title %></h3>
+
+            <p><%= article.content.truncate(20) %></p>
+            <%= link_to 'read more', article_path(article.id) %>
+
+            <h4>status : <%= article.status %></h4>
+            <p>
+
+            <span><%= link_to 'edit', edit_article_path(article.id) %><span>
+            <span> | </span>
+
+            <span><%= link_to 'delete', article_path(article.id), method: "DELETE", data: {confirm: 'Delete this data ? '} %><span>
+
+            </p>
+           
+            <hr style ="border-color: #009688"/>
+
+            <% end %>
+              <%= paginate @articles %>
+
+            
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default" style="background-color: transparent;margin-top:20px">
+              <div class="panel-body">
+                  <h1>Import Articles</h1>
+                  <%= form_tag import_articles_path, multipart: true do %>
+                  <%= file_field_tag :file %>
+                  <%= submit_tag "Import" %>
+                  <% end %>
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default" style="background-color: transparent;">
+              <div class="panel-body">
+                <p>
+                  Download:
+                  <%= link_to "CSV", articles_path(format: "csv") %> |
+                  <%= link_to "Excel", articles_path(format: "xls") %>
+                </p>
+                </div>
+            </div>
+        </div>
+   
+
+
+    
+    </div>
+
+

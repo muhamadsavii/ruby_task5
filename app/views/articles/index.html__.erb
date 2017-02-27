@@ -1,0 +1,29 @@
+<p>Search <input type="text" id="search" placeholder="Search by content or title" /></p>
+
+<table>
+
+  <thead>
+
+    <tr>
+
+      <th>Title</th>
+
+      <th>Content</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody id="articles">
+
+    <%= render @articles %>
+
+  </tbody>
+
+</table>
+
+<%= javascript_include_tag 'custom' %>
+
+$('#articles').html("<%= j(render @articles) %>");
+
+$('#direction').prop("checked",!$("#direction").prop("checked"));

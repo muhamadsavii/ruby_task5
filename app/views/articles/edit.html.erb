@@ -1,0 +1,47 @@
+
+
+<h1>Edit Artikel</h1>
+<%= form_for @article do |f| %>
+
+    <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, :class => "form-control" %>
+        <div class="alert-danger">
+        <%= @article.errors[:title].first unless @article.errors[:title].blank? %>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= f.label :content %>
+
+        <%= f.text_area :content, :class => "form-control", cols: 20, rows: 10 %>
+        
+
+        <div class="alert-danger">
+        <%= @article.errors[:content].first unless @article.errors[:content].blank? %>
+        </div>
+    </div>
+<%= f.label :status %>
+
+<%= f.radio_button :status, "active" %>
+
+<%= label :article_status, 'active' %>
+
+<%= f.radio_button :status, "off" %>
+
+<%= label :article_status, 'off' %>
+
+<br/>
+
+
+<%= f.submit :submit, :class => "btn btn-primary" %>
+<% end %> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
